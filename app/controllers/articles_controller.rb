@@ -38,6 +38,16 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def destroy
+    @article = Article.find(params[:id])
+    if @article.destroy
+      flash[:notice] = 'Article was deleted successfully.'
+      redirect_to articles_path
+    else
+      render 'index', status: :unprocessable_entity
+    end
+  end
+
   private
 
   def article_params
